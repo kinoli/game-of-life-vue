@@ -7,7 +7,7 @@ The Game of Life, also known simply as Life, is a cellular automaton devised by 
 This project was bootstrapped from Vue CLI.
 
 ## Demo
-Here is the [build of this project](/dist).
+Here is the [build of this project](http://www.kinoliclients.com/game-of-life-vue/).
 
 ## Project setup
 ```
