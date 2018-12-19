@@ -1,10 +1,13 @@
 <template>
-  <div class="board">
-    <cell
-      v-for="(cellData, index) of grid"
-      :key="index"
-      :alive="cellData.alive"
-      :style="getCellStyle(cellData)" />
+  <div>
+    <p class="text-center"><small>Execution Load Time: {{buildTime}} ms</small></p>
+    <div class="board">
+      <cell
+        v-for="(cellData, index) of grid"
+        :key="index"
+        :alive="cellData.alive"
+        :style="getCellStyle(cellData)" />
+    </div>
   </div>
 </template>
 
@@ -21,21 +24,23 @@ export default {
   },
   mounted () {
     this.restartBoard()
-    this.intervalId = setInterval(() => this.setNextCellStates(), this.interval)
   },
   data () {
     return {
       grid: [],
-      intervalId: null
+      intervalId: null,
+      buildTime: 0
     }
   },
   methods: {
     restartBoard () {
+      const startTime = new Date()
+      clearInterval(this.intervalId)
       this.grid = []
       this.buildGrid()
       this.assignNeighbors()
-
-      // this.setNextCellStates()
+      this.buildTime = new Date() - startTime
+      this.intervalId = setInterval(() => this.setNextCellStates(), this.interval)
     },
     buildGrid () {
       const gridConstruction = []
@@ -54,22 +59,28 @@ export default {
       this.grid = gridConstruction
     },
     assignNeighbors () {
-      const gridWithNeighbors = this.grid.map(cell => {
+      this.grid = this.grid.map(cell => {
         cell.neighbors = this.getNeighbors(cell)
         return cell
       })
-      this.grid = gridWithNeighbors
     },
     getNeighbors (cell) {
       const max = this.size - 1
-      return this.grid.filter(n => {
-        if (n !== cell) {
-          const xFlag = Math.abs(n.coords.x - cell.coords.x) <= 1 || Math.abs(cell.coords.x - n.coords.x) === max
-          const yFlag = Math.abs(n.coords.y - cell.coords.y) <= 1 || Math.abs(cell.coords.y - n.coords.y) === max
-          return (xFlag && yFlag) || null
+      const result = []
+      this.grid.filter(n => {
+        if (result.length < 8 && n !== cell) {
+          const xDiff = Math.abs(n.coords.x - cell.coords.x)
+          const xFlag = xDiff <= 1 || xDiff === max
+          if (xFlag) {
+            const yDiff = Math.abs(n.coords.y - cell.coords.y)
+            const yFlag = yDiff <= 1 || yDiff === max
+            if (yFlag) {
+              result.push(n)
+            }
+          }
         }
-        return null
       })
+      return result
     },
     setNextCellStates () {
       this.grid = this.grid.map(cell => {
