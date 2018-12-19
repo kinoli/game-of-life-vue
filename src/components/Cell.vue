@@ -1,7 +1,6 @@
 <template lang="html">
 
-  <section class="cell">
-    <div :class="{active: alive}" />
+  <section class="cell" :class="{active: alive}">
   </section>
 
 </template>
@@ -21,15 +20,14 @@ export default {
 <style scoped lang="scss">
   .cell {
     position: absolute;
+    background-color: #e2e2e2;
+    width: 100%;
+    height: 100%;
+    width: 20px;
+    height: 20px;
 
-    >div {
-      background-color: #e2e2e2;
-      width: 100%;
-      height: 100%;
-
-      &.active {
-        background-color: black;
-      }
+    &.active {
+      background-color: black;
     }
   }
 </style>

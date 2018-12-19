@@ -99,9 +99,9 @@ export default {
     getCellStyle (cell) {
       return {
         left: `${cell.coords.x * this.blockSize}px`,
-        top: `${cell.coords.y * this.blockSize}px`,
-        width: `${this.blockSize}px`,
-        height: `${this.blockSize}px`
+        top: `${cell.coords.y * this.blockSize}px`
+        // width: `${this.blockSize}px`,
+        // height: `${this.blockSize}px`
       }
     }
   },
