@@ -35,7 +35,7 @@ export default {
     return {
       boardSize: 30,
       sizeInput: 30,
-      blockSize: 20,
+      blockSize: 14,
       intervalInput: 50,
       interval: 50
     }

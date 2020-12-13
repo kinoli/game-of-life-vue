@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p class="text-center"><small>Blocks: {{grid.length}} | Execution Load Time: {{buildTime}} ms</small></p>
+    <p class="text-center"><small>Blocks: {{grid.length}} | Execution load time: {{buildTime}} ms | Live spots: {{ grid.filter(g => g.alive).length }}</small></p>
     <div class="board">
       <cell
         v-for="(cellData, index) of grid"
